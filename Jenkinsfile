@@ -101,7 +101,7 @@ pipeline {
 
                     docker run -d \
                     --name ${CONTAINER_NAME} \
-                    -p ${APP_PORT}:8080 \
+                    -p 8081:8080 \
                     --restart unless-stopped \
                     ${DOCKERHUB_REPO}:latest
                 """
@@ -112,7 +112,7 @@ pipeline {
             steps {
              sh '''
                     for i in \\$(seq 1 10); do
-                        if curl -sf http://localhost:${APP_PORT}/actuator/health; then
+                        if curl -sf http://localhost:8081/actuator/health; then
                             echo 'App is healthy'
                             exit 0
                         fi
