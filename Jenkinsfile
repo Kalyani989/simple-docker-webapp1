@@ -108,24 +108,18 @@ pipeline {
             }
         }
 
-        stage('Health Check') {
-            steps {
-             sh '''
-                    for i in \\$(seq 1 10); do
-                        if curl -sf http://localhost:8081/actuator/health; then
-                            echo 'App is healthy'
-                            exit 0
-                        fi
+       
+stage('Health Check') {
+    steps {
+        sh '''
+            echo "Checking application health..."
+            sleep 10
+            curl -f http://localhost:8081
+            echo "Application is running successfully!"
+        '''
+    }
+}
 
-                        echo 'Waiting for app to become healthy...'
-                        sleep 5
-                    done
-
-                    echo 'Health check failed after retries'
-                    exit 1
-                '''
-            }
-        }
     }
 
     post {
