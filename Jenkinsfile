@@ -1,4 +1,3 @@
-
 pipeline {
     agent any
 
@@ -25,7 +24,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                    url: 'https://github.com/Kalyani989/simple-docker-webapp.git'
+            url: 'https://github.com/Kalyani989/simple-docker-webapp1.git'
             }
         }
 
@@ -111,7 +110,7 @@ pipeline {
 
         stage('Health Check') {
             steps {
-                sh """
+             sh '''
                     for i in \\$(seq 1 10); do
                         if curl -sf http://localhost:${APP_PORT}/actuator/health; then
                             echo 'App is healthy'
@@ -124,7 +123,7 @@ pipeline {
 
                     echo 'Health check failed after retries'
                     exit 1
-                """
+                '''
             }
         }
     }
